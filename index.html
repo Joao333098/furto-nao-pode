@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerar PDF - Artigos da Confederação</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Artigos da Confederação - Perguntas e Respostas</h1>
+    
+    <h3>Perguntas:</h3>
+    <ol>
+        <li>What was one of the reasons the Articles of Confederation created a weak central government?
+            <br><strong>Answer:</strong> A) They had just fought to be free from a strong central government under the British king.
+        </li>
+        <li>What power did the Congress under the Articles of Confederation have, according to the video?
+            <br><strong>Answer:</strong> C) The power to make treaties, maintain an army, and coin money.
+        </li>
+        <li>How did the Articles of Confederation affect taxes at the federal level?
+            <br><strong>Answer:</strong> B) Paying federal taxes was voluntary for states, meaning the government couldn’t collect money easily.
+        </li>
+        <li>What major issue did the government face because it couldn’t collect taxes under the Articles of Confederation?
+            <br><strong>Answer:</strong> C) The United States couldn’t pay its debts from the Revolutionary War, leading to an economic disaster.
+        </li>
+        <li>How did Daniel Shays’ Rebellion reveal a weakness in the Articles of Confederation?
+            <br><strong>Answer:</strong> A) It showed that the national government could not stop the rebellion because it lacked the power to raise an army.
+        </li>
+        <li>Why was it difficult to make changes to the Articles of Confederation, according to the video?
+            <br><strong>Answer:</strong> D) Any change needed unanimous approval from all 13 states, making it hard to pass amendments.
+        </li>
+        <li>How did Shays’ Rebellion and the weaknesses of the Articles of Confederation lead to a new Constitution?
+            <br><strong>Answer:</strong> B) The weaknesses of the Articles, including the inability to stop the rebellion, led to a call for a stronger central government, resulting in the Constitution.
+        </li>
+    </ol>
+
+    <button id="download-pdf">Baixar PDF</button>
+
+    <script>
+        document.getElementById('download-pdf').addEventListener('click', function () {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Adicionando o título
+            doc.setFontSize(18);
+            doc.text('Artigos da Confederação - Perguntas e Respostas', 10, 10);
+            doc.setFontSize(12);
+
+            // Adicionando as perguntas e respostas
+            const questions = [
+                ["What was one of the reasons the Articles of Confederation created a weak central government?", 
+                 "A) They had just fought to be free from a strong central government under the British king."],
+                ["What power did the Congress under the Articles of Confederation have, according to the video?", 
+                 "C) The power to make treaties, maintain an army, and coin money."],
+                ["How did the Articles of Confederation affect taxes at the federal level?", 
+                 "B) Paying federal taxes was voluntary for states, meaning the government couldn’t collect money easily."],
+                ["What major issue did the government face because it couldn’t collect taxes under the Articles of Confederation?", 
+                 "C) The United States couldn’t pay its debts from the Revolutionary War, leading to an economic disaster."],
+                ["How did Daniel Shays’ Rebellion reveal a weakness in the Articles of Confederation?", 
+                 "A) It showed that the national government could not stop the rebellion because it lacked the power to raise an army."],
+                ["Why was it difficult to make changes to the Articles of Confederation, according to the video?", 
+                 "D) Any change needed unanimous approval from all 13 states, making it hard to pass amendments."],
+                ["How did Shays’ Rebellion and the weaknesses of the Articles of Confederation lead to a new Constitution?", 
+                 "B) The weaknesses of the Articles, including the inability to stop the rebellion, led to a call for a stronger central government, resulting in the Constitution."]
+            ];
+
+            let y = 20; // Posição vertical inicial
+            questions.forEach((q, i) => {
+                doc.text(`${i + 1}. ${q[0]}`, 10, y);
+                y += 10; // Espaçamento
+                doc.text(`Answer: ${q[1]}`, 10, y);
+                y += 10; // Espaçamento
+                if (y >= 270) { // Se atingir o limite da página, adiciona uma nova página
+                    doc.addPage();
+                    y = 10; // Reinicia a posição vertical
+                }
+            });
+
+            // Salva o arquivo PDF
+            doc.save('artigos_da_confederacao.pdf');
+        });
+    </script>
+
+</body>
+</html>
